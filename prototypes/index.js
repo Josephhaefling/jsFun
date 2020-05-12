@@ -1,3 +1,4 @@
+/* eslint-disable */
 const { kitties } = require('./datasets/kitties');
 const { clubs } = require('./datasets/clubs');
 const { mods } = require('./datasets/mods');
@@ -27,21 +28,24 @@ const kittyPrompts = {
 
     // Return an array of just the names of kitties who are orange e.g.
     // ['Tiger', 'Snickers']
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.filter(cat => cat.color === 'orange').map(cat => cat.name)
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    //
   },
 
   sortByAge() {
     // Sort the kitties by their age
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+    return kitties.sort((a, b) => {
+      return b.age - a.age
+    })
+   };
+    return result();
 
-    // Annotation:
-    // Write your annotation here as a comment
+    // Annotation: itereate over kitties and add 2 to their age then sort by age
   },
 
   growUp() {
@@ -58,8 +62,13 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+     let cats = kitties.filter(cat => cat.age += 2)
+     return cats.sort((a, b) => {
+      return b.age - a.age
+    })
+   };
+    return result();
   }
 };
 
@@ -90,8 +99,18 @@ const clubPrompts = {
     //   ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      return clubs.reduce((acc, club) => {
+        club.members.forEach(member => {
+          if (!acc[member]) {
+             acc[member] = []
+          }
+          acc[member].push(club.club)
+        })
+        return acc
+      }, {})
+    };
+    return result();
 
     // Annotation:
     // Write your annotation here as a comment
@@ -126,11 +145,22 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      return mods.map(mod => {
+      mod.studentsPerInstructor = mod.students / mod.instructors
+      delete mod.students
+      delete mod.instructors
+      return mod
+  })
+}
+
+return result()
 
     // Annotation:
-    // Write your annotation here as a comment
+    // create an empty array of objects
+    // set keys to the value of the mod and numStudents
+    // value to mod# and numStudents
+
   }
 };
 
@@ -161,11 +191,21 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      return cakes.reduce((acc, cake) => {
+        let specificCake = {}
+        specificCake.flavor = cake.cakeFlavor
+        specificCake.inStock = cake.inStock
+        acc.push(specificCake)
+        return acc
+      }, [])
+    }
+    return result();
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Delete filling key
+    // Delete frosting key
+    // Delete toppings key
   },
 
   onlyInStock() {
@@ -189,22 +229,31 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      return cakes.filter(cake => cake.inStock > 0)
+    }
+    return result();
 
     // Annotation:
-    // Write your annotation here as a comment
+    // for each cake.inStock return cake
+    // disgard all other cakes
   },
 
   totalInventory() {
     // Return the total amount of cakes in stock e.g.
     // 59
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      return cakes.reduce((acc, cake) => {
+        acc += cake.inStock
+        return acc
+      }, 0)
+    }
+    return result();
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Iterate over the cake array
+    // Add together the value of inStock for each cake
   },
 
   allToppings() {
@@ -212,11 +261,23 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      return cakes.reduce((acc, cake) => {
+        cake.toppings.forEach(topping => {
+          if(!acc.includes(topping)) {
+            acc.push(topping)
+          }
+        })
+        return acc
+      }, [])
+    }
+        return result();
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Iterate over the cake array to get a list of call allToppings
+    // iterate over each topping in the toppings array
+    // create an if statement to weed out the toppings that already exist
+    // Return list
   },
 
   groceryList() {
@@ -230,11 +291,25 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      return cakes.reduce((acc, cake) => {
+        cake.toppings.forEach(topping => {
+          if(!acc[topping]) {
+            acc[topping] = 1
+          } else {
+            acc[topping] += 1
+          }
+        })
+        return acc
+      }, {})
+    }
+      return result();
 
     // Annotation:
-    // Write your annotation here as a comment
+    // iterate over the cakes array
+    // iterate over the the ingredients arrays
+    // if an ingredient doesn't exist create a key for it
+    // if it does exist up the counter by one
   }
 };
 
