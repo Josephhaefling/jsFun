@@ -340,8 +340,10 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      return classrooms.filter(classRoom => classRoom.program === 'FE')
+    }
+    return result();
 
     // Annotation:
     // Write your annotation here as a comment
@@ -355,18 +357,29 @@ const classPrompts = {
     //   beCapacity: 96
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      return classrooms.reduce((acc, room) => {
+        room.program === 'FE' ? acc.feCapacity += room.capacity : acc.beCapacity += room.capacity
+        return acc
+      }, {
+        feCapacity: 0,
+        beCapacity: 0
+      })
+    }
+    return result();
 
     // Annotation:
-    // Write your annotation here as a comment
+    // create an object with key names of feCapacity & beCapacity
+    // forEach room if program equals fe/be add the result to the key
   },
 
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      return classrooms.sort((a, b) => a.capacity - b.capacity)
+    }
+    return result();
 
     // Annotation:
     // Write your annotation here as a comment
@@ -392,12 +405,14 @@ const bookPrompts = {
     //   'Catch-22', 'Treasure Island']
 
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      let notViolent = books.filter(book => book.genre !== 'True Crime' && book.genre !== 'Horror')
+      return notViolent.map(book => book.title)
+    }
+    return result();
 
     // Annotation:
-    // Write your annotation here as a comment
-
+    // filter through books array if book is not horror or true crime return book
   },
   getNewBooks() {
     // return an array of objects containing all books that were
@@ -407,11 +422,20 @@ const bookPrompts = {
     //  { title: 'Life of Pi', year: 2001 },
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      let newBooks = books.filter(book => book.published >= 1990)
+      return newBooks.map(book => {
+        let newObject = {}
+        newObject.title = book.title
+        newObject.year = book.published
+        return newObject
+      })
+    }
+        return result();
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Iterate over array get books.published after 1990
+    // return an array of objects with title and publish
   }
 
 };
