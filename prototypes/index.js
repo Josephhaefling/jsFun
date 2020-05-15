@@ -454,8 +454,10 @@ const weatherPrompts = {
     // return an array of all the average temperatures. Eg:
     // [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      return weather.map(elem => (elem.temperature.high + elem.temperature.low) / 2)
+    }
+    return result();
 
     // Annotation:
     // Write your annotation here as a comment
@@ -468,8 +470,12 @@ const weatherPrompts = {
     // 'New Orleans, Louisiana is sunny.',
     // 'Raleigh, North Carolina is mostly sunny.' ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      let sunnyLocations = weather.filter(elem => elem.type === 'sunny')
+      let mostlySunnyLocations = weather.filter(elem => elem.type === 'mostly sunny')
+      return   sunnyLocations.concat(mostlySunnyLocations).map(location => `${location.location} is ${location.type}.`)
+    }
+    return result();
 
     // Annotation:
     // Write your annotation here as a comment
@@ -484,8 +490,13 @@ const weatherPrompts = {
     //   temperature: { high: 49, low: 38 }
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+  let result = () => {
+    let mostHumid = weather.sort((a, b) => b.humidity - a.humidity)
+    return mostHumid[0]
+  }
+
+  return result()
+
 
     // Annotation:
     // Write your annotation here as a comment
@@ -511,12 +522,21 @@ const nationalParksPrompts = {
     //   parksVisited: ["Rocky Mountain", "Acadia", "Zion"]
     //}
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    let result = () => {
+      return nationalParks.reduce((acc, park) => {
+        park.visited ? acc.parksVisited.push(park.name) : acc.parksToVisit.push(park.name)
+        return acc
+      }, {parksToVisit: [], parksVisited: []})
+    }
+     return result()
+   },
+
 
     // Annotation:
-    // Write your annotation here as a comment
-  },
+    // Iterate over the parks array
+    // if the park has been visited add it to the visted key
+    // else add it to the notVisited key
+    // return an object
 
   getParkInEachState() {
     // Return an array of objects where the key is the state and the value is its National Park
@@ -528,11 +548,24 @@ const nationalParksPrompts = {
     // { Florida: 'Everglades' } ]
 
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    let result = () => {
+      let newState = {}
+      return nationalParks.reduce((acc, park) => {
+        if(!acc[park.location]) {
+           newState[park.location] = park.name
+        }
+        acc.push(newState)
+        newState = {}
+        return acc
+      }, [])
+    }
+     return result();
 
     // Annotation:
-    // Write your annotation here as a comment
+    // iterate through the parks arrays get park state
+    // if state isn't an object make it an object with the property of state and value of [park.names]
+    // if it is an object push park.name into the key
+
   },
 
   getParkActivities() {
@@ -550,12 +583,20 @@ const nationalParksPrompts = {
     //   'canyoneering',
     //   'backpacking',
     //   'rock climbing' ]
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    let result = () => {
+      return nationalParks.reduce((acc, park) => {
+        park.activities.forEach(activity => {
+          if(!acc.includes(activity)) {
+            acc.push(activity)
+          }
+        })
+        return acc
+      },[])
+    }
+    return result()
 
     // Annotation:
-    // Write your annotation here as a comment
+    //
   }
 };
 
