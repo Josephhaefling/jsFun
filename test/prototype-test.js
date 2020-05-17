@@ -296,7 +296,7 @@ describe("PROTOTYPES", () => {
         parksVisited: [ 'Rocky Mountain', 'Acadia', 'Zion' ]
       })
     }),
-    it.only("getParkActivities", () => {
+    it("getParkActivities", () => {
       const e = nationalParksPrompts.getParkActivities();
       expect(e).to.deep.equal(
       [ 'hiking',
@@ -348,7 +348,7 @@ describe("PROTOTYPES", () => {
         name: "Platt Park Brewing Co.",
         beerCount: 7
       }])
-    }), it("findHighestAbvBeer", () => {
+    }), it.only("findHighestAbvBeer", () => {
       const e = breweryPrompts.findHighestAbvBeer();
       expect(e).to.deep.equal({
         name: "Barrel Aged Nature's Sweater",
