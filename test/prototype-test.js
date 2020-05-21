@@ -348,7 +348,7 @@ describe("PROTOTYPES", () => {
         name: "Platt Park Brewing Co.",
         beerCount: 7
       }])
-    }), it.only("findHighestAbvBeer", () => {
+    }), it("findHighestAbvBeer", () => {
       const e = breweryPrompts.findHighestAbvBeer();
       expect(e).to.deep.equal({
         name: "Barrel Aged Nature's Sweater",
@@ -440,7 +440,7 @@ describe("PROTOTYPES", () => {
       }])
     })
   }), describe("Astronomy Prompts", () => {
-    it("starsInConstellations", () => {
+    it.only("starsInConstellations", () => {
       const e = astronomyPrompts.starsInConstellations();
       expect(e).to.deep.equal([{
         name: 'Rigel',

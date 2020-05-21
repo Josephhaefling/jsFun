@@ -709,11 +709,25 @@ const turingPrompts = {
     //  { name: 'Robbie', studentCount: 18 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    let result = () => {
+     return instructors.map(instructor => {
+        let instructorObject = {}
+        instructorObject.name = instructor.name
+        instructorObject.studentCount = null
+            cohorts.forEach(cohort => {
+              if(cohort.module === instructor.module)  {
+                instructorObject.studentCount = cohort.studentCount
+          }
+        })
+        return instructorObject
+      })
+    }
+    return result()
 
     // Annotation:
-    // Write your annotation here as a comment
+    //For each instructor set a key of name set it equal to instructor.name
+    //for each instructor set a key of studentCount
+    // for each cohort find the corosponding istructor module and set the value of that module to the studentCount for the instructor
   },
 
   studentsPerInstructor() {
@@ -723,8 +737,20 @@ const turingPrompts = {
     // cohort1804: 10.5
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    let result = () => {
+      const newObj = instructors.reduce((acc, instructor) => {
+        if(!acc[instructor.module]) {
+          acc[instructor.module] = 0
+        }
+        acc[instructor.module]++
+        return acc
+      }, {})
+        return cohorts.reduce((acc, cohort)=> {
+          acc[`cohort${cohort.cohort}`] = cohort.studentCount / newObj[cohort.module]
+          return acc
+        }, {})
+      }
+      return result();
 
     // Annotation:
     // Write your annotation here as a comment
@@ -745,8 +771,22 @@ const turingPrompts = {
     //     Will: [1, 2, 3, 4]
     //   }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+  return instructors.reduce((acc, instructor) => {
+    acc[instructor.name] = []
+    instructor.teaches.forEach(skill => {
+    cohorts.forEach(cohort => {
+      if(cohort.curriculum.includes(skill)) {
+        if(!acc[instructor.name].includes(cohort.module))
+        acc[instructor.name].push(cohort.module)
+        }
+      })
+    })
+    acc[instructor.name].sort((a, b) => a - b)
+    return acc
+  }, {})
+}
+    return result()
 
     // Annotation:
     // Write your annotation here as a comment
@@ -762,11 +802,23 @@ const turingPrompts = {
     //   recursion: [ 'Pam', 'Leta' ]
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      return instructors.reduce((acc, instructor) => {
+        instructor.teaches.forEach(subject => {
+          if(!acc[subject]) {
+            acc[subject] = []
+          }
+        acc[subject].push(instructor.name)
+        })
+        return acc
+      }, {})
+    }
+    return result()
 
-    // Annotation:
-    // Write your annotation here as a comment
+    //iterate over the instructors array
+    //for each instructor iterate of the teaches array
+    // if teaches is not a thing make it a thing
+    //push instrucotrs name into the thing
   }
 };
 
@@ -797,8 +849,21 @@ const bossPrompts = {
     //   { bossName: 'Scar', sidekickLoyalty: 16 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      let bossKeys = Object.keys(bosses)
+      return bossKeys.map(boss => {
+        let acc = {}
+        acc.bossName = bosses[boss].name
+        acc.sidekickLoyalty = 0
+        sidekicks.forEach(sidekick => {
+          if (sidekick.boss === bosses[boss].name) {
+            acc.sidekickLoyalty += sidekick.loyaltyToBoss
+          }
+        })
+        return acc
+      })
+    }
+    return result()
 
     // Annotation:
     // Write your annotation here as a comment
