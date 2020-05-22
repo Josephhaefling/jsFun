@@ -904,12 +904,29 @@ const astronomyPrompts = {
     //     color: 'red' }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+  const constellationKeys = Object.keys(constellations)
+  return constellationKeys.reduce((acc, constellation) => {
+    constellations[constellation].stars.forEach(star => {
+    stars.forEach(thing => {
+      if (thing.name === star) {
+        acc.push(thing)
+       }
+      })
+    })
+    acc.sort((a, b) => b.lightYearsFromEarth - a.lightYearsFromEarth)
+    return acc
+  }, [])
+}
+    return result()
+
+},
 
     // Annotation:
-    // Write your annotation here as a comment
-  },
+        //get object.keys for constellations
+        // iterate over each constellation.stars array
+        //iterate over the stars array
+        //if  star matches star.name && the star isn't alread in the array push it into the array.  },
 
   starsByColor() {
     // Return an object with keys of the different colors of the stars,
@@ -922,11 +939,22 @@ const astronomyPrompts = {
     //   red: [{obj}]
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = () => {
+      return stars.reduce((acc, star) => {
+        if(!acc[star.color]){
+          acc[star.color] = []
+        }
+        acc[star.color].push(star)
+        return acc
+      }, {})
+    }
+
+    return result()
 
     // Annotation:
-    // Write your annotation here as a comment
+    // iterate over the stars arrays (reduce)
+    // if star.color isn't a key make it a key with a value of []
+    // push the star into the array
   },
 
   constellationsStarsExistIn() {
