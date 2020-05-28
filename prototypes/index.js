@@ -972,8 +972,11 @@ const astronomyPrompts = {
     //    "The Little Dipper" ]
 
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    result = () => {
+      const filteredAndSortedStars = stars.filter(star => star.constellation !== '').sort((a, b) => a.visualMagnitude - b.visualMagnitude)
+      return filteredAndSortedStars.map(star => star.constellation)
+    }
+      return result()
 
     // Annotation:
     // Write your annotation here as a comment
@@ -1003,8 +1006,13 @@ const ultimaPrompts = {
     // Return the sum of the amount of damage for all the weapons that our characters can use
     // Answer => 113
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    result = () => {
+      return characters.reduce((attackTotal, character ) => {
+        character.weapons.forEach(weapon => attackTotal += weapons[weapon].damage)
+        return attackTotal
+      }, 0)
+    }
+    return result()
 
     // Annotation:
     // Write your annotation here as a comment
@@ -1015,8 +1023,19 @@ const ultimaPrompts = {
     // Return the sum damage and total range for each character as an object.
     // ex: [ { Avatar: { damage: 27, range: 24 }, { Iolo: {...}, ...}
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    result = () => {
+      return characters.map(character => {
+        let characterObjects = {}
+        characterObjects[`${character.name}`] = {damage: 0, range: 0}
+          character.weapons.forEach(weapon => {
+            characterObjects[`${character.name}`].damage += weapons[weapon].damage
+            characterObjects[`${character.name}`].range += weapons[weapon].range
+
+          })
+        return characterObjects
+      })
+    }
+    return result()
 
     // Annotation:
     // Write your annotation here as a comment
@@ -1052,11 +1071,25 @@ const dinosaurPrompts = {
     //   'Jurassic World: Fallen Kingdom': 18
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    result = () => {
+      return movies.reduce((movieList, movie) => {
+        movieList[movie.title] = 0
+        movie.dinos.forEach(dino => {
+          if (dinosaurs[dino].isAwesome) {
+            movieList[movie.title]++
+          }
+        })
+        return movieList
+      }, {})
+    }
+    return result()
 
     // Annotation:
-    // Write your annotation here as a comment
+    // iterate over the movies array
+    // for each movie iterate over the elements of the dinos key array
+    // for each element in the array check the dinosaurs object dinosaurs[dinos.element].isAwesome
+    // if dinosaur is awesome movie[name] ++
+
   },
 
   averageAgePerMovie() {
@@ -1085,8 +1118,20 @@ const dinosaurPrompts = {
       }
     */
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    result = () => {
+      return movies.reduce((acc, movie) => {
+        if(!acc[movie.director]) {
+          acc[movie.director] = {}
+        }
+        acc[movie.director][movie.title] = 0
+        movie.cast.forEach(actor => {
+          acc[movie.director][movie.title] += movie.yearReleased - humans[actor].yearBorn
+        })
+        acc[movie.director][movie.title] = Math.floor(acc[movie.director][movie.title] / movie.cast.length)
+        return acc
+      }, {})
+    }
+    return result()
 
     // Annotation:
     // Write your annotation here as a comment
@@ -1118,12 +1163,35 @@ const dinosaurPrompts = {
       }]
     */
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    result = () => {
+       movies.forEach(movie => {
+        movie.cast.forEach(castMember => {
+          if(humans[castMember]) {
+            delete(humans[castMember])
+          }
+        })
+      })
+      const humanKeys = Object.keys(humans)
+      const things = humanKeys.reduce((acc, humanKey) => {
+        let humanObject = {}
+        humanObject.name = humanKey
+        humanObject.nationality = humans[humanKey].nationality
+        humanObject.imdbStarMeterRating = humans[humanKey].imdbStarMeterRating
+        acc.push(humanObject)
+        return acc
+        }, [])
+      return things.sort((a, b) => {
+        return ((a.nationality < b.nationality) ? -1 : ((a.nationality > b.nationality) ? 1 : 0));
+      })
+    }
+    return result()
+  },
 
     // Annotation:
-    // Write your annotation here as a comment
-  },
+    // Iterate over the movies array
+    // iterate over the movie get the movie.cast array
+    // for each cast member
+    // if cast member is an element remove them from the object.
 
   actorsAgesInMovies() {
     /*
@@ -1141,8 +1209,23 @@ const dinosaurPrompts = {
       { name: 'Bryce Dallas Howard', ages: [ 34, 37 ] } ]
     */
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    result = () => {
+      const peopleObj = movies.reduce((acc, movie) => {
+        movie.cast.forEach(castMember => {
+          if(!acc[castMember]) {
+            acc[castMember] = []
+          }
+          acc[castMember].push(movie.yearReleased - humans[castMember].yearBorn)
+        })
+        return acc
+      }, {})
+      const peopleKeys = Object.keys(peopleObj)
+      return peopleKeys.map(person => {
+        return {name: person, ages: peopleObj[person]}
+      })
+    }
+
+    return result()
 
     // Annotation:
     // Write your annotation here as a comment
