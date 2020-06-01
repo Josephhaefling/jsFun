@@ -12,7 +12,7 @@ const scope = {
 
       function beautifyPerson() {
         // Log A: personB
-        
+
         if (personB.includes('B')) {
           personB = person;
           personC = personB;
@@ -29,7 +29,15 @@ const scope = {
 
     // Log D: personC
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [{
+      A: "Ben"
+    }, {
+      B: "CardiB"
+    }, {
+      C: "CardiB"
+    }, {
+      D: "Paul"
+    }]
     return result;
 
     // Annotation:
@@ -46,24 +54,32 @@ const scope = {
         let number = 28;
       }
 
-      // Log A: number
+      // Log A: 75
 
       function newNumber() {
         number = 64;
 
-        // Log B: number
+        // Log B: 64
       }
 
       newNumber();
 
-      // Log C: number
+      // Log C: 75
     }
 
     numberFunction();
 
-    // Log D: number
+    // Log D: 30
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [{
+      A: 75
+    }, {
+      B: 64
+    }, {
+      C: 64
+    }, {
+      D: 30
+    }]
     return result;
 
     // Annotation:
@@ -80,24 +96,32 @@ const scope = {
         let greeting = 'Howdy';
       }
 
-      // Log A: greeting
+      // Log A: Yo
 
       function newPhrase() {
         greeting = 'Hey';
 
-        // Log B: greeting
+        // Log B: Hey
       }
 
       newPhrase();
 
-      // Log C: greeting
+      // Log C: 'Yo'
     }
 
     greetingFunction();
 
-    // Log D: greeting
+    // Log D: 'Hey'
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [{
+      A: "Yo"
+    }, {
+      B: "Hey"
+    }, {
+      C: "Hey"
+    }, {
+      D: "Hello"
+    }]
     return result;
 
     // Annotation:
@@ -114,24 +138,32 @@ const scope = {
         let greeting = 'hello';
       }
 
-      // Log A: greeting
+      // Log A: 'hi'
 
       const newGreeting = ()  => {
         greeting = 'welcome';
 
-        // Log B: greeting
+        // Log B: 'welcome'
       };
 
       newGreeting();
 
-      // Log C: greeting
+      // Log C: 'welcome'
     };
 
     greetingGenerator();
 
-    // Log D: greeting
+    // Log D: 'howdy'
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [{
+      A: "hi"
+    }, {
+      B: "welcome"
+    }, {
+      C: "welcome"
+    }, {
+      D: "howdy"
+    }]
     return result;
 
     // Annotation:
@@ -151,19 +183,27 @@ const scope = {
           let name = 'Brittany';
         }
 
-        // Log A: name
+        // Log A: 'Nathaniel'
       }
 
-      // Log B: name
+      // Log B: 'Nathaniel'
     }
 
-    // Log C: name
+    // Log C: 'Brittany'
 
     sayName();
 
-    // Log D: name
+    // Log D: 'Brittany'
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [{
+      C: "Brittany"
+    }, {
+      A: "Nathaniel"
+    }, {
+      B: "Nathaniel"
+    }, {
+      D: "Brittany"
+    }]
     return result;
 
     // Annotation:
@@ -174,31 +214,41 @@ const scope = {
     var dog = 'Spot';
 
     function petDog() {
-      // Log A: dog
+      // Log A: 'Spot'
 
       if (dog === 'Spot') {
         let dog = 'Fluffy';
       }
 
       function rollOver() {
-        // Log B: dog
+        // Log B: 'Spot'
 
         dog = 'Biscuit';
 
-        // Log C: dog
+        // Log C: 'Biscuit'
 
       }
 
       rollOver();
 
-      // Log D: dog
+      // Log D: 'Biscuit'
     }
 
     petDog();
 
-    // Log E: dog
+    // Log E: 'Spot'
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [{
+      A: "Spot"
+    }, {
+      B: "Spot"
+    }, {
+      C: "Biscuit"
+    }, {
+      D: "Biscuit"
+    }, {
+      E: "Biscuit"
+    }]
     return result;
 
     // Annotation:
@@ -315,7 +365,7 @@ const scope = {
       // Log B: toppings
       var toppings = 'chipotle sauce';
 
-      if (toppings === 'chipotle sauce') { 
+      if (toppings === 'chipotle sauce') {
         sandwich = 'not a mediocre sandwich';
       }
 
@@ -518,7 +568,7 @@ const scope = {
       // Log A: kid
       wildKids.push(kid);
       // Log B: wildKids
-  
+
       let drawOnTheWall = () => {
         let myKid = 'Mandy';
         // Log C: myKid
@@ -556,7 +606,7 @@ const scope = {
       // Log B: myName
 
       let innerFunc = () => {
-        let myName = 'Tesla'; 
+        let myName = 'Tesla';
         // Log C: myName
       };
 
